@@ -1,0 +1,20 @@
+<!-- eml_app/templates/upload_eml.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload EML File</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'eml_app/css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Upload EML File</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</body>
+</html>
