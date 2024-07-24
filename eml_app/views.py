@@ -30,14 +30,15 @@ def extract_text_from_email(msg):
             text = payload.decode('utf-8')
     return text
 
-def final_ai_response(clean_text_01):
+def final_ai_response(clean_text_01, user_name, user_age, user_gender, user_location, user_occupation):
     os.environ["API_KEY"] = "AIzaSyBlUF9y20Hr5gerkBYHTeaODaVpPd4EK9o"  # Replace with your actual API key
     genai.configure(api_key=os.environ["API_KEY"])
     model = genai.GenerativeModel('gemini-1.5-flash')
     
     # Ai instructions
-    instruction = "give me two line suggestions from the following to make a decision like an instructor "
-    response = model.generate_content(instruction + "{" + clean_text_01 + "}")
+    user_personal_details = "I am " + user_name + ", my age is " + str(user_age) + ", My gender is " + user_gender + ", I am living in " + user_location + "in India , My occupation is " +  user_occupation
+    instruction = ", so give me three line suggestions from the following to make a decision like an instructor "
+    response = model.generate_content(user_personal_details + instruction + "{" + clean_text_01 + "}")
 
     return response.text
     # return instruction
@@ -54,6 +55,8 @@ def clean_text(input_text):
 
 def upload_eml(request, user_id):
     user_detail = get_object_or_404(UserDetail, id=user_id)
+    user_name, user_age, user_gender, user_location, user_occupation = user_detail.name, user_detail.age, user_detail.gender, user_detail.location, user_detail.occupation
+    # print(user_name, user_age, user_gender, user_location, user_occupation)
     if request.method == 'POST':
         form = EmlUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -61,7 +64,7 @@ def upload_eml(request, user_id):
             msg = email.message_from_bytes(eml_file.read())
             text = extract_text_from_email(msg)
             cleaned_text_output = clean_text(text)
-            ai_response = final_ai_response(cleaned_text_output)
+            ai_response = final_ai_response(cleaned_text_output, user_name, user_age, user_gender, user_location, user_occupation)
 
             # Create feedback form
             feedback_form = FeedbackForm(instance=user_detail)
