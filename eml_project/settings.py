@@ -129,5 +129,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'eml_app/static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["https://actions.thinkingai.in", "actions.thinkingai.in"]
+CSRF_TRUSTED_ORIGINS = ["https://actions.thinkingai.in"]
 
