@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)bdrho7lhg2de^$$m_t%41fy6aqy1pbis57l&#0x%6r^qq2_*d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "actions.thinkingai.in", "https://actions.thinkingai.in", "http://actions.thinkingai.in", "https://www.actions.thinkingai.in", "http://www.actions.thinkingai.in"]
 
 
 # Application definition
@@ -128,3 +128,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'eml_app/static')]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ["https://actions.thinkingai.in", "actions.thinkingai.in"]
+
